@@ -1,0 +1,34 @@
+
+datasource:
+  url: jdbc:mysql://replication.c9t6dmtnqwlu.ap-northeast-2.rds.amazonaws.com:3306/product?useSSL=false&serverTimezone=UTC&useCursors=false&sendStringParametersAsUnicode=false&characterEncoding=UTF8
+  slave-list:
+    - name: slave_1
+      url: jdbc:mysql://replication-slave1.c9t6dmtnqwlu.ap-northeast-2.rds.amazonaws.com:3306/product?useSSL=false&serverTimezone=UTC&useCursors=false&sendStringParametersAsUnicode=false&characterEncoding=UTF8
+    - name: slave_2
+      url: jdbc:mysql://replication-slave2.c9t6dmtnqwlu.ap-northeast-2.rds.amazonaws.com:3306/product?useSSL=false&serverTimezone=UTC&useCursors=false&sendStringParametersAsUnicode=false&characterEncoding=UTF8
+    - name: slave_3
+      url: jdbc:mysql://replication-slave3.c9t6dmtnqwlu.ap-northeast-2.rds.amazonaws.com:3306/product?useSSL=false&serverTimezone=UTC&useCursors=false&sendStringParametersAsUnicode=false&characterEncoding=UTF8
+  username: KingCjy
+  password: zxasqw12
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: none
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      generate-ddl: false
+    show-sql: true
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    properties:
+      hibernate:
+        enable_lazy_load_no_trans: true
+        format_sql: true
+    open-in-view: false
+  main:
+    allow-bean-definition-overriding: true
+
+logging:
+  level:
+    org.springframework.jdbc.datasource.SimpleDriverDataSource: DEBUG
+    org.hibernate.SQL: DEBUG

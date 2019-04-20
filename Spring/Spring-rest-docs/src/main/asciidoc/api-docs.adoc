@@ -1,0 +1,17 @@
+
+== 상품 등록
+include::{snippets}/product-controller-test/상품_등록/http-request.adoc[]
+include::{snippets}/product-controller-test/상품_등록/request-fields.adoc[]
+include::{snippets}/product-controller-test/상품_등록/http-response.adoc[]
+
+== 상품 조회
+include::{snippets}/product-controller-test/상품_조회/http-request.adoc[]
+include::{snippets}/product-controller-test/상품_조회/path-parameters.adoc[]
+include::{snippets}/product-controller-test/상품_조회/http-response.adoc[]
+include::{snippets}/product-controller-test/상품_조회/response-fields.adoc[]
+
+== 상품 리스트 조회
+include::{snippets}/product-controller-test/상품_리스트_조회/http-request.adoc[]
+include::{snippets}/product-controller-test/상품_리스트_조회/request-parameters.adoc[]
+include::{snippets}/product-controller-test/상품_리스트_조회/http-response.adoc[]
+include::{snippets}/product-controller-test/상품_리스트_조회/response-fields.adoc[]
