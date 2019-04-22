@@ -55,7 +55,7 @@ Master DB와 Slave DB를 나눠서 구성하고
     <groupId>org.projectlombok</groupId>
     <artifactId>lombok</artifactId>
     <optional>true</optional>
-</dependency>
+</dependency>3
 <dependency>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-test</artifactId>
@@ -90,9 +90,7 @@ spring:
     allow-bean-definition-overriding: true
 ```
 
-아래에 Database 설정을 추가해줍니다.
-
-<pre><code>src/main/resources/application.yml</code></code>
+아래에 Database 설정을 추가해줍니다
 
 ```yaml
 datasource:
@@ -410,19 +408,19 @@ insert into `product` (title, contents) values ('상품1', '상품1입니다'), 
 ]
 ```
 
-위와 같은 결과값이 나온다.
+위와 같은 결과값이 나옵니다.
 
 SimpleDriverDataSource의 로그를 확인해보면
 
 ```Creating new JDBC Driver Connection to [jdbc:mysql://replication-slave2.c9t6dmtnqwlu...```
 
-이렇게 Slave DB를 사용한다. 계속 요청을 하면 Slave DB 1, 2, 3 을 순차적으로 사용한다.
+이렇게 Slave DB를 사용합니다.
 
 /api/product/master에 요청을 보내면
 
 ```Creating new JDBC Driver Connection to [jdbc:mysql://replication.c9t6dmtnqwlu...```
 
-이렇게 Master DB를 사용한다.
+이렇게 Master DB를 사용합니다.
 
 
 

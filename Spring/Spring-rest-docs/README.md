@@ -1,3 +1,5 @@
+![](/Users/kingcjy/git/blog/Spring/Spring-rest-docs/images/spring-boot-logo.png)
+
 ## Spring REST Docs
 
 Spring REST Docs는 RESTful 서비스를 문서화 할 수 있게 도와주는 도구입니다. 기본적으로 Asciidoc을 사용하며 작성된 테스트 코드에 의해 html파일을 생성해줍니다.
