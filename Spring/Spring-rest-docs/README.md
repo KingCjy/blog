@@ -1,4 +1,4 @@
-![](/Users/kingcjy/git/blog/Spring/Spring-rest-docs/images/spring-boot-logo.png)
+![](https://github.com/KingCjy/blog/blob/master/Spring/Spring-rest-docs/images/spring-boot-logo.png?raw=true)
 
 ## Spring REST Docs
 

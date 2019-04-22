@@ -1,6 +1,6 @@
-## Spring Boot, JPA DB Replication 구현하기
-
 ![](https://github.com/KingCjy/blog/blob/master/Spring/Spring-db-replication/images/spring-boot-logo.png?raw=true)
+
+## Spring Boot, JPA DB Replication 구현하기
 
 ### DB Replication 이란?
 

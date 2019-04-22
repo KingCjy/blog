@@ -1,3 +1,5 @@
+![](https://github.com/KingCjy/blog/blob/master/Spring/Spring-profile/images/spring-boot-logo.png?raw=true)
+
 # 환경에 맞는 Spring Profile 설정하기
 
 스프링 부트로 서버를 개발하다보면 개발환경과 리얼 환경에서의 profile을 다르게 설정해야하는 경우가 생깁니다. ( 데이터베이스 설정,   외부 연동 url등)
