@@ -10,7 +10,7 @@ Swagger같은 도구로 생성하는 문서가 아닌 Test로 자동 생성 된 
 
 ## 메이븐 의존성 추가
 
-pom.xml 의 dependencies 에 추가합니다.
+`pom.xml` 의 `dependencies` 에 추가합니다.
 
 ```xml
 <dependency>
@@ -38,8 +38,6 @@ pom.xml 의 dependencies 에 추가합니다.
     <optional>true</optional>
 </dependency>
 ```
-
-
 
 ```xml
 <build>
@@ -117,7 +115,7 @@ pom.xml 의 dependencies 에 추가합니다.
 
 간단하게 상품을 추가, 조회하는 RESTful 서비스 입니다.
 
-/src/main/java/com/kingcjy/main/dto/ProductDto.java
+`/src/main/java/com/kingcjy/main/dto/ProductDto.java`
 
 ```java
 @Data
@@ -129,7 +127,7 @@ public class ProductDto {
 }
 ```
 
-/src/main/java/com/kingcjy/main/controller/ProductController.java
+`/src/main/java/com/kingcjy/main/controller/ProductController.java`
 
 ```java
 @RestController
@@ -173,7 +171,7 @@ public class ProductController {
 
 ### MockMvc, RestDocumentation 세팅
 
-/src/test/java/com/kingcjy/main/controller/ProductControllerTest.java
+`/src/test/java/com/kingcjy/main/controller/ProductControllerTest.java`
 
 ```java
 @RunWith(SpringRunner.class)
@@ -203,14 +201,14 @@ public class ProductControllerTest {
 }
 ```
 
-* <code>@Rule
-  public JUnitRestDocumentation restDocumentation = new JUnitRestDocumentation();</code>
+* `@Rule
+  public JUnitRestDocumentation restDocumentation = new JUnitRestDocumentation();`
   * 기본적으로 스프링은 JUnit을 사용하기 때문에 JUnitRestDocumentation객체를 생성합니다.
-  * 생성자에 String 형식으로 output directory를 지정할 수 있습니다. (기본값은 <code>target/generated-snippets</code>)
+  * 생성자에 String 형식으로 output directory를 지정할 수 있습니다. (기본값은 `target/generated-snippets`)
 * RestDocumentationResultHandler객체를 생성합니다.
-  * 스니펫 경로를 <code>{class-name}/{method-name}</code> 로 설정하여 <code>target/generated-snippets/product-controller-test/메서드이름</code> 하위에 스니펫이 생성됩니다.
-  * <code>preprocessResponse(prettyPrint())</code>를 사용하여 json이 정렬됩니다.
-* <code>uris().withScheme("https").withHost("kingcjy.com").withPort(443))</code>
+  * 스니펫 경로를 `{class-name}/{method-name}` 로 설정하여 `target/generated-snippets/product-controller-test/메서드이름` 하위에 스니펫이 생성됩니다.
+  * `preprocessResponse(prettyPrint())`를 사용하여 json이 정렬됩니다.
+* `uris().withScheme("https").withHost("kingcjy.com").withPort(443))`
   * 스니펫 파일에서 나오는 호스트를 변조해줍니다.
 
 ### 테스트 코드 작성
@@ -251,7 +249,7 @@ public class ProductControllerTest {
 }
 ```
 
-* <code>requestFields</code> 를 사용해서 파라미터 정의를 해줍니다.
+* `requestFields` 를 사용해서 파라미터 정의를 해줍니다.
 
 #### 상품 조회 API 테스트 작성
 
@@ -286,8 +284,8 @@ public class ProductControllerTest {
 }
 ```
 
-* <code>pathParameter</code> 와 API의 결과값인 <code>responseField</code> 를 지정해줍니다.
-* <code>andExpect</code> 를 사용하여 결과값에 대한 테스트를 할 수 있습니다.
+* `pathParameter` 와 API의 결과값인 `responseField` 를 지정해줍니다.
+* `andExpect` 를 사용하여 결과값에 대한 테스트를 할 수 있습니다.
 
 #### 상품 리스트 조회 테스트 작성
 
@@ -325,7 +323,7 @@ public class ProductControllerTest {
 }
 ```
 
-* 마찬가지로 <code>requestParameters</code> 와 결과값인 <code>responseField</code> 를 지정합니다.
+* 마찬가지로 `requestParameters` 와 결과값인 `responseField` 를 지정합니다.
 
 
 
@@ -383,13 +381,13 @@ include::{snippets}/product-controller-test/상품_리스트_조회/response-fie
 
 
 
-작성 후 실제 문서를 생성하기 위해 다시 <code>maven install</code> 을 해줍니다.
+작성 후 실제 문서를 생성하기 위해 다시 `maven install` 을 해줍니다.
 
 ```
 mvn install
 ```
 
-<code>install</code>이 완료되면 스프링 부트를 실행한 후 http://127.0.0.1:8080/docs/api-docs.html로 접속하면
+`install`이 완료되면 스프링 부트를 실행한 후 http://127.0.0.1:8080/docs/api-docs.html로 접속하면
 
 ![](/Users/kingcjy/git/blog/Spring/Spring-rest-docs/images/result.png)
 

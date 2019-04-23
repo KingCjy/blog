@@ -11,15 +11,15 @@
 
 먼저 스프링 프로필을 작성해야합니다.
 
-<code>/src/main/resources/develop/application.yaml</code>
+`/src/main/resources/develop/application.properties`
 
-```yaml
+```properties
 spring.profile.value: develop
 ```
 
-<code>/src/main/resources/production/application.yaml</code>
+`/src/main/resources/production/application.properties`
 
-```yaml
+```properties
 spring.profile.value: production
 ```
 
@@ -27,7 +27,7 @@ spring.profile.value: production
 
 이제 스프링에서 @Profile 어노테이션을 사용해 프로필을 추가해줘야합니다.
 
-<code>/src/main/java/com/kingcjy/main/config/profile/ProfileDevelop.java</code>
+`/src/main/java/com/kingcjy/main/config/profile/ProfileDevelop.java`
 
 ```java
 @Configuration
@@ -37,7 +37,7 @@ public class ProfileDevelop {
 }
 ```
 
-<code>/src/main/java/com/kingcjy/main/config/profile/ProfileProduction.java</code>
+`/src/main/java/com/kingcjy/main/config/profile/ProfileProduction.java`
 
 ```java
 @Configuration
@@ -49,7 +49,7 @@ public class ProfileDevelop {
 
 위의 두개의 프로필 클래스를 import 해줘야합니다.
 
-<code>/src/main/java/com/kingcjy/main/config/profile/ProfileConfig.java</code>
+`/src/main/java/com/kingcjy/main/config/profile/ProfileConfig.java`
 
 ```java
 @Import({ ProfileDevelop.class, ProfileProduction.class})
@@ -64,7 +64,7 @@ public class ProfileConfig {
 
 이제 스프링 부트의 기본 프로필을 설정하기 위해 시작 클래스를 수정합니다.
 
-<code>/src/main/java/com/kingcjy/main/SpringBootApplication.java</code>
+`/src/main/java/com/kingcjy/main/SpringBootApplication.java`
 
 ```java
 @org.springframework.boot.autoconfigure.SpringBootApplication
@@ -90,7 +90,7 @@ public class SpringBootApplication {
 
 정상적으로 적용되었는지 확인하기 위해 간단한 컨트롤러를 작성해줍니다.
 
-<code>/src/main/java/com/kingcjy/main/controller/MyController</code>
+`/src/main/java/com/kingcjy/main/controller/MyController`
 
 ```java
 @Controller
@@ -107,7 +107,7 @@ public class MyController {
 
 
 
-이제 스프링 부트를 실행한 다음 <code>http://127.0.0.1:8080/ping</code> 으로 접속하면 develop 프로필이 지정됩니다.
+이제 스프링 부트를 실행한 다음 `http://127.0.0.1:8080/ping` 으로 접속하면 develop 프로필이 지정됩니다.
 
 ```
 develop
@@ -123,7 +123,7 @@ production
 
 ## 테스트 환경에서의 프로필 설정
 
-테스트 환경에서는 테스트 클래스에 <code>@ActiveProfiles(value = { "develop" })</code> 어노테이션을 작성해주시면 원하시는 프로필이 적용된 상태에서 테스트가 진행됩니다.
+테스트 환경에서는 테스트 클래스에 `@ActiveProfiles(value = { "develop" })` 어노테이션을 작성해주시면 원하시는 프로필이 적용된 상태에서 테스트가 진행됩니다.
 
 
 

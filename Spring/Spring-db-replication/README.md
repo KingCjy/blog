@@ -18,7 +18,7 @@ Master DB에는 데이터의 변경이 필요한  INSERT, UPDATE, DELETE 등의 
 
 Master DB와 Slave DB를 나눠서 구성하고
 
-@Transaction의 readOnly속성을 사용하여 true일 시 Slave DB, false일 시 Master DB를 사용한다.
+`@Transaction의` `readOnly`속성을 사용하여 `true`일 시 Slave DB,` false`일 시 Master DB를 사용한다.
 
 ### 구성
 
@@ -69,7 +69,7 @@ Master DB와 Slave DB를 나눠서 구성하고
 
 jpa 기본 설정입니다.
 
-<pre><code>src/main/resources/application.yml</code></pre>
+`src/main/resources/application.yml`
 
 ```yaml
 spring:
@@ -108,9 +108,9 @@ datasource:
 
 ### 코드 작성
 
-가장 먼저 우리는 DataSource를 직접 설정해야하기 때문에 Spring에서 DataSourceAutoConfiguration 클래스를 제외해야합니다.
+가장 먼저 DataSource를 직접 설정해야하기 때문에 Spring에서 `DataSourceAutoConfiguration` 클래스를 제외해야합니다.
 
-<pre><code>/src/main/com/kingcjy/replication/ReplicationApplication.java</code></pre>
+`/src/main/com/kingcjy/replication/ReplicationApplication.java`
 
 ```java
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
@@ -123,7 +123,7 @@ public class ReplicationApplication {
 
 DB의 설정파일을 가져올 DatabaseProperty클래스를 만들어줍니다.
 
-<pre><code>src/main/com/kingcjy/replication/config/DatabaseProperty.java</code></pre>
+`src/main/com/kingcjy/replication/config/DatabaseProperty.java`
 
 ```java
 @Getter
@@ -146,9 +146,9 @@ public class DatabaseProperty {
 }
 ```
 
-여러개의 DataSource를 로드밸런싱을 하기 위해 CircurlarList 클래스를 만들어줍니다.
+여러개의 DataSource를 순서대로 사용하여 로드벨런싱 하기 위해 CircurlarList 클래스를 만들어줍니다.
 
-<pre><code>/src/main/kingcjy/replication/util/CircularList</code></pre>
+`/src/main/kingcjy/replication/util/CircularList.java`
 
 ```java
 public class CircularList<T> {
@@ -167,13 +167,13 @@ public class CircularList<T> {
 }
 ```
 
-여러개의 DataSource를 묶고 필요에 따라 분기처리를 하기 위해 AbstractRoutingDataSource클래스를 사용합니다.
+여러개의 DataSource를 묶고 필요에 따라 분기처리를 하기 위해 `AbstractRoutingDataSource`클래스를 사용합니다.
 
-여러대의 Slave DB를 순서대로 사용하기 위해 CircularList에 Slave 데이터베이스의 키를 추가합니다.
+여러대의 Slave DB를 순서대로 사용하기 위해 `CircularList`에 Slave 데이터베이스의 키를 추가합니다.
 
-determineCurrentLookupKey 메서드에서 현재 트랜잭션이 readOnly일 시 slave db로, 아닐 시 master db의 DataSource의 키를 리턴한다.
+`determineCurrentLookupKey` 메서드에서 현재 트랜잭션이 `readOnly`일 시 slave db로, 아닐 시 master db의 `DataSource`의 키를 리턴하도록 작성해줍니다.
 
-<pre><code>/src/main/com/kingcjy/replication/config/ReplicationRoutingDataSource</code></pre>
+`/src/main/com/kingcjy/replication/config/ReplicationRoutingDataSource.java`
 
 ```java
 public class ReplicationRoutingDataSource extends AbstractRoutingDataSource {
@@ -204,11 +204,11 @@ public class ReplicationRoutingDataSource extends AbstractRoutingDataSource {
 }
 ```
 
-이제 최종적으로 DataSource, TransactionManager, EntityManagerFactory를 설정해야합니다.
+이제 최종적으로 `DataSource`, `TransactionManager`, `EntityManagerFactory`를 설정해야합니다.
 
-<pre><code>src/main/com/kingcjy/replication/config/DatabaseConfig</code></pre>
+`src/main/com/kingcjy/replication/config/DatabaseConfig.java`
 
-가장 먼저 DataSource를 설정합니다.
+가장 먼저 `DataSource`를 설정합니다.
 
 ```java
 @Configuration
@@ -251,13 +251,13 @@ public class DatabaseConfig {
 }
 ```
 
-아까 만들었던 ReplicationRoutingDataSource클래스에 Master 데이터베이스와 Slave 데이터베이스를 추가해줍니다.
+아까 만들었던 `ReplicationRoutingDataSource`클래스에 Master 데이터베이스와 Slave 데이터베이스를 추가해줍니다.
 
-LazyConnectionDataSourceProxy를 사용하면 실제 쿼리가 실행될 때 Connection을 가져옵니다. 
+`LazyConnectionDataSourceProxy`를 사용하면 실제 쿼리가 실행될 때 Connection을 가져옵니다. 
 
-TransactionSynchronizationManager가 현재 트랜잭션의 상태값을 읽어올 수 있지만 실제 트랜잭션 동기화 시점과 Connection이 연결되는 시점이 다르기 때문에 LazyConnectionDataSourceProxy를 사용해 트랜잭션 실행시에 Connection객체를 가져옵니다.
+`TransactionSynchronizationManager`가 현재 트랜잭션의 상태값을 읽어올 수 있지만 실제 트랜잭션 동기화 시점과 `Connection`이 연결되는 시점이 다르기 때문에 `LazyConnectionDataSourceProxy`를 사용해 트랜잭션 실행시에 `Connection`객체를 가져옵니다.
 
-이후에 Jpa에서 사용할 EntityManagerFactory와 TransactionManager를 설정해줍니다.
+이후에 `JPA`에서 사용할 `EntityManagerFactory`와 `TransactionManager`를 설정해줍니다.
 
 ```java
 @Configuration
@@ -290,7 +290,7 @@ public class DatabaseConfig {
 
 ### 테스트용 코드 작성
 
-<pre><code>/src/main/com/kingcjy/replication/entity/Product</code></pre>
+`/src/main/com/kingcjy/replication/entity/Product.java`
 
 ```java
 @Entity
@@ -313,13 +313,13 @@ public class Product {
 }
 ```
 
-<pre><code>src/main/kingcjy/replication/entity/ProductRepository</code></pre>
+`src/main/kingcjy/replication/entity/ProductRepository.java`
 
 ```java
 public interface ProductRepository extends JpaRepository<Product, Long> {}
 ```
 
-<pre><code>src/main/com/kingcjy/replication/controller/ProductController</code></pre>
+`src/main/com/kingcjy/replication/controller/ProductController.java`
 
 ```java
 @RestController
@@ -342,7 +342,7 @@ public class ProductController {
 }
 ```
 
-<pre><code>src/main/kingcjy/replication/service/ProductService</code></pre>
+`src/main/kingcjy/replication/service/ProductService.java`
 
 ```java
 @Service
@@ -362,7 +362,7 @@ public class ProductService {
 }
 ```
 
-실제로 Master DB, Slave DB로 쿼리가 날아가는지 확인하기 위해 application.yml에 아래의 코드를 추가합니다.
+실제로 Master DB, Slave DB로 쿼리가 날아가는지 확인하기 위해 `application.yml`에 아래의 코드를 추가합니다.
 
 ```yaml
 logging:
@@ -386,7 +386,7 @@ insert into `product` (title, contents) values ('상품1', '상품1입니다'), 
 
 ### 작동 확인
 
-서버를 실행 후 /api/product 에 get 요청을 하면
+서버를 실행 후 `/api/product` 에 get 요청을 하면
 
 ```json
 [
