@@ -1,0 +1,11 @@
+cache:
+  paths:
+    - ./.m2/repository
+
+maven_build:
+  stage: deploy
+  tags:
+    - maven
+  script:
+    - mvn clean install
+    - echo "success"
