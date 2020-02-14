@@ -1,32 +1,35 @@
 
 datasource:
-  url: jdbc:mysql://replication.c9t6dmtnqwlu.ap-northeast-2.rds.amazonaws.com:3306/product?useSSL=false&serverTimezone=UTC&useCursors=false&sendStringParametersAsUnicode=false&characterEncoding=UTF8
+  url: jdbc:mysql://webshop.c9t6dmtnqwlu.ap-northeast-2.rds.amazonaws.com:3306/webshop?useSSL=false&serverTimezone=UTC&useCursors=false&sendStringParametersAsUnicode=false&characterEncoding=UTF8
   slave-list:
     - name: slave_1
-      url: jdbc:mysql://replication-slave1.c9t6dmtnqwlu.ap-northeast-2.rds.amazonaws.com:3306/product?useSSL=false&serverTimezone=UTC&useCursors=false&sendStringParametersAsUnicode=false&characterEncoding=UTF8
-    - name: slave_2
-      url: jdbc:mysql://replication-slave2.c9t6dmtnqwlu.ap-northeast-2.rds.amazonaws.com:3306/product?useSSL=false&serverTimezone=UTC&useCursors=false&sendStringParametersAsUnicode=false&characterEncoding=UTF8
-    - name: slave_3
-      url: jdbc:mysql://replication-slave3.c9t6dmtnqwlu.ap-northeast-2.rds.amazonaws.com:3306/product?useSSL=false&serverTimezone=UTC&useCursors=false&sendStringParametersAsUnicode=false&characterEncoding=UTF8
-  username: KingCjy
-  password: zxasqw12
+      url: jdbc:mysql://webshop-slave1.c9t6dmtnqwlu.ap-northeast-2.rds.amazonaws.com:3306/webshop?useSSL=false&serverTimezone=UTC&useCursors=false&sendStringParametersAsUnicode=false&characterEncoding=UTF8
+  username: webshop
+  password: webshop()
+
+hibernate:
+  dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+
 
 spring:
   jpa:
     hibernate:
-      ddl-auto: none
-      naming:
-        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-      generate-ddl: false
     show-sql: true
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     properties:
       hibernate:
         enable_lazy_load_no_trans: true
         format_sql: true
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
     open-in-view: false
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
   main:
     allow-bean-definition-overriding: true
+  datasource:
+    url: jdbc:mysql://webshop.c9t6dmtnqwlu.ap-northeast-2.rds.amazonaws.com:3306/board?useSSL=false&serverTimezone=UTC&useCursors=false&sendStringParametersAsUnicode=false&characterEncoding=UTF8
+    username: webshop
+    password: webshop()
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    maximum-pool-size: 20
 
 logging:
   level:

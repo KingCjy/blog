@@ -1,6 +1,7 @@
 package com.kingcjy.replication.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.LazyConnectionDataSourceProxy;
@@ -22,6 +23,9 @@ public class DatabaseConfig {
 
     @Autowired
     private DatabaseProperty databaseProperty;
+
+    @Autowired
+    private JpaProperties jpaProperties;
 
     public DataSource createDataSource(String url) {
         SimpleDriverDataSource dataSource = new SimpleDriverDataSource();
@@ -55,14 +59,17 @@ public class DatabaseConfig {
     public DataSource dataSource() {
         return new LazyConnectionDataSourceProxy(routingDataSource());
     }
+
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-
         LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
         entityManagerFactoryBean.setDataSource(dataSource());
         entityManagerFactoryBean.setPackagesToScan("com.kingcjy.replication");
-        JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+        HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+        vendorAdapter.getJpaPropertyMap().put("hibernate.dialect", "org.hibernate.dialect.MySQL5InnoDBDialect");
         entityManagerFactoryBean.setJpaVendorAdapter(vendorAdapter);
+
+        entityManagerFactoryBean.setJpaPropertyMap(jpaProperties.getProperties());
 
         return entityManagerFactoryBean;
     }
